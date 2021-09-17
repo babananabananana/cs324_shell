@@ -117,8 +117,10 @@ void eval(char *cmdline)
     bg = parseline(cmdline, argv); //parseline returns true if its a background
     if(!builtin_cmd(argv)){
         int numcmd = parseargs(argv, cmds, stdin_redir, stdin_redir);
+        int p[numcmds -1][2];
         for (int i = 0; i < numcmd; ++i) {
             //TODO: set up pipes before fork
+//            pipe(p[i]);
             pid = fork();
             //TODO: setpgid(pid, pgid) where pgid is the pid of the first child processs in the pipelinepid is the process pid
             if(pid == 0) {
@@ -126,15 +128,14 @@ void eval(char *cmdline)
                 //TODO: SETUP INPUT AND OUTPUT REDIRECT BEFORE EXEC
                 if(stdin_redir[i] != -1){
                     fd[2 * i] = fopen(argv[stdin_redir[i]], "r");
-                    int inFileNum = fileno(fd[2*i]);
-                    dup2(0, inFileNum);
-
+//                    int inFileNum = fileno(fd[2*i]);
+//                    dup2(0, inFileNum);
                 }
                 if(stdout_redir[i] != -1){
                     int fileindex = ((2 * i) + 1);
                     fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
-                    int outFileNum = fileno(fd[fileindex]);
-                    dup2(outFileNum, 1);
+//                    int outFileNum = fileno(fd[fileindex]);
+//                    dup2(outFileNum, 1);
                 }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
