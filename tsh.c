@@ -131,11 +131,13 @@ void eval(char *cmdline)
 
                 }
                 if(stdout_redir[i] != -1){
+                    printf("hi2");
                     if(!strcmp(argv[stdout_redir[i]],"quit")) {
+                        printf("hi");
                         int fileindex = ((2 * i) + 1);
                         fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
                         int outFileNum = fileno(fd[fileindex]);
-//                        dup2(outFileNum, 1);
+                        dup2(outFileNum, 1);
                     }
                 }
 
