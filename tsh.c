@@ -112,6 +112,7 @@ void eval(char *cmdline)
     int cmds[MAXARGS];
     int stdin_redir[MAXARGS];
     int stdout_redir[MAXARGS];
+    FILE* fd[MAXARGS];
 
     bg = parseline(cmdline, argv); //parseline returns true if its a background
     if(!builtin_cmd(argv)){
@@ -123,14 +124,14 @@ void eval(char *cmdline)
             if(pid == 0) {
                 //am child
                 //TODO: SETUP INPUT AND OUTPUT REDIRECT BEFORE EXEC
-//                if(stdin_redir[i] != -1){
-//                    FILE* infile = fopen(argv[stdin_redir[i]], "r");
-//                    int inFileNum = fileno(infile);
-//                    dup2(0, inFileNum);
-//                }
+                if(stdin_redir[i] != -1){
+                    fd[2*i] = fopen(argv[stdin_redir[i]], "r");
+                    int inFileNum = fileno(fd[2*i]);
+                    dup2(0, inFileNum);
+                }
                 if(stdout_redir[i] != -1){
-                    FILE* outfile = fopen(argv[stdout_redir[i]], "w");
-                    int outFileNum = fileno(outfile);
+                    fd[(2*i)+1] = fopen(argv[stdout_redir[i]], "w");
+                    int outFileNum = fileno(fd[(2*i) + 1]);
                     dup2(outFileNum, 1);
                 }
 
