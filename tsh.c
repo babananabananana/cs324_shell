@@ -103,7 +103,7 @@ int main(int argc, char **argv)
  * background children don't receive SIGINT (SIGTSTP) from the kernel
  * when we type ctrl-c (ctrl-z) at the keyboard.  
 */
-void eval(char *cmdline) 
+void eval(char *cmdline)
 {
     int bg;
     int status;
@@ -123,20 +123,20 @@ void eval(char *cmdline)
 //            pipe(p[i]); //PIPES
             pid = fork();
             //TODO: setpgid(pid, pgid) where pgid is the pid of the first child processs in the pipelinepid is the process pid
-            if(pid == 0) {
+            if (pid == 0) {
                 //am child
 
                 //TODO: SETUP INPUT AND OUTPUT REDIRECT BEFORE EXEC
-                if(stdin_redir[i] != -1){
+                if (stdin_redir[i] != -1) {
                     fd[2 * i] = fopen(argv[stdin_redir[i]], "r");
-                    int inFileNum = fileno(fd[2*i]);
+                    int inFileNum = fileno(fd[2 * i]);
                     dup2(0, inFileNum);
                 }
-                if(stdout_redir[i] != -1){
+                if (stdout_redir[i] != -1) {
                     int fileindex = ((2 * i) + 1);
                     fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
                     int outFileNum = fileno(fd[fileindex]);
-                    dup2(1, outFileNum);
+                    dup2(outFileNum, 1);
                 }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
