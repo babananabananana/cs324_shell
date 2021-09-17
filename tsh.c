@@ -128,7 +128,7 @@ void eval(char *cmdline)
                     int inFileNum = fileno(infile);
                     dup2(0, inFileNum);
                 }
-                if(stdout_redir[i] != 0){
+                if(stdout_redir[i] != -1){
                     FILE* outfile = fopen(argv[stdout_redir[i]], "w");
                     int outFileNum = fileno(outfile);
                     dup2(outFileNum, 1);
