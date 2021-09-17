@@ -123,16 +123,16 @@ void eval(char *cmdline)
             if(pid == 0) {
                 //am child
                 //TODO: SETUP INPUT AND OUTPUT REDIRECT BEFORE EXEC
-                if(stdin_redir[i] != -1){
-                    FILE* infile = fopen(argv[stdin_redir[i]], "r");
-                    int inFileNum = fileno(infile);
-                    dup2(0, inFileNum);
-                }
-                if(stdout_redir[i] != -1){
-                    FILE* outfile = fopen(argv[stdout_redir[i]], "w");
-                    int outFileNum = fileno(outfile);
-                    dup2(outFileNum, 1);
-                }
+//                if(stdin_redir[i] != -1){
+//                    FILE* infile = fopen(argv[stdin_redir[i]], "r");
+//                    int inFileNum = fileno(infile);
+//                    dup2(0, inFileNum);
+//                }
+//                if(stdout_redir[i] != -1){
+//                    FILE* outfile = fopen(argv[stdout_redir[i]], "w");
+//                    int outFileNum = fileno(outfile);
+//                    dup2(outFileNum, 1);
+//                }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
             }else{
