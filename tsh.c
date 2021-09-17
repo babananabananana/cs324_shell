@@ -131,9 +131,7 @@ void eval(char *cmdline)
 
                 }
                 if(stdout_redir[i] != -1){
-                    printf("hi2");
                     if(!strcmp(argv[stdout_redir[i]],"quit")) {
-                        printf("hi");
                         int fileindex = ((2 * i) + 1);
                         fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
                         int outFileNum = fileno(fd[fileindex]);
@@ -142,18 +140,12 @@ void eval(char *cmdline)
                 }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
-            }else{
-                //am parent, doesn't care unless connecting child processes
-                //if process is bg, wait
-                //TODO: if you have a big list, which thing to wait for? this is for 1 command, not a list.
-                // itll sit ther and wait on first command isntead of starting on the others
-                // will involve process groups, which process to finally wait on.
-
-                if(!bg){
-                    waitpid(pid, &status, 0);
-                    //TODO:w-ifexited stuff
-                }
+                exit(1);
             }
+        }
+        if(!bg){
+            waitpid(pid, &status, 0);
+            //TODO:w-ifexited stuff?
         }
     }
 
