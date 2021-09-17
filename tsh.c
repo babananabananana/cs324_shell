@@ -136,7 +136,7 @@ void eval(char *cmdline)
                     int fileindex = ((2 * i) + 1);
                     fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
                     int outFileNum = fileno(fd[fileindex]);
-                    dup2(outFileNum, 1);
+                    dup2(1, outFileNum);
                 }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
