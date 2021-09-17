@@ -131,9 +131,9 @@ void eval(char *cmdline)
 
                 }
                 if(stdout_redir[i] != -1){
-//                    if(strcmp(argv[stdout_redir[i]],"quit")) {
-                    int fileindex = (2 * i) + 1;
-//                    fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
+//                    if(argv[stdout_redir[i]] != "quit") {
+                        int fileindex = ((2 * i) + 1);
+//                        fd[fileindex] = fopen(argv[stdout_redir[i]], "w");
 //                    int outFileNum = fileno(fd[(2*i) + 1]);
 //                    dup2(outFileNum, 1);
 //                    }
