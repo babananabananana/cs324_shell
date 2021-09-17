@@ -127,12 +127,12 @@ void eval(char *cmdline)
                 if(stdin_redir[i] != -1){
                     fd[2*i] = fopen(argv[stdin_redir[i]], "r");
                     int inFileNum = fileno(fd[2*i]);
-                    dup2(0, inFileNum);
+//                    dup2(0, inFileNum);
                 }
                 if(stdout_redir[i] != -1){
                     fd[(2*i)+1] = fopen(argv[stdout_redir[i]], "w");
                     int outFileNum = fileno(fd[(2*i) + 1]);
-                    dup2(outFileNum, 1);
+//                    dup2(outFileNum, 1);
                 }
 
                 execv(argv[cmds[i]], &argv[cmds[i]]);
