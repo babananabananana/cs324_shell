@@ -116,7 +116,7 @@ void eval(char *cmdline)
 
     bg = parseline(cmdline, argv); //parseline returns true if its a background
     if(!builtin_cmd(argv)){
-        int numcmd = parseargs(argv, cmds, stdin_redir, stdin_redir);
+        int numcmd = parseargs(argv, cmds, stdin_redir, stdout_redir);
 //        int p[numcmd -1][2]; //PIPES
         for (int i = 0; i < numcmd; ++i) {
             //TODO: set up pipes before fork
