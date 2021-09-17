@@ -116,9 +116,13 @@ void eval(char *cmdline)
     bg = parseline(cmdline, argv); //parseline returns true if its a background
     if(!builtin_cmd(argv)){
         int numcmd = parseargs(argv, cmds, stdin_redir, stdin_redir);
+        for(int i = 0; i < sizeof cmds, i++){
+            printf(cmds[i]);
+        }
         for (int i = 0; i < numcmd; ++i) {
             //TODO: set up pipes before fork
             pid = fork();
+            //TODO: setpgid(pid, pgid) where pgid is the pid of the first child processs in the pipelinepid is the process pid
             if(pid == 0) {
                 //am child
                 //TODO: SETUP INPUT AND OUTPUT REDIRECT BEFORE EXEC
