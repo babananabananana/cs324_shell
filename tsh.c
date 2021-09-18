@@ -129,10 +129,10 @@ void eval(char *cmdline)
             }
             pid[i] = fork();
 
-            setpgid(pid[i], 100);
             //TODO: setpgid(pid, pgid) where pgid is the pid of the first child processs in the pipelinepid is the process pid
             if (pid[i] == 0) {
                 //am child
+                setpgid(pid[i], pid[0]);
 
                 if(i > 0){ //not first
                     dup2(p[i-1][0], STDIN_FILENO);
