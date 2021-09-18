@@ -128,7 +128,8 @@ void eval(char *cmdline)
                 pipe(p[i]); //PIPES
             }
             pid[i] = fork();
-            setpgid(pid, 100);
+
+            setpgid(pid[i], 100);
             //TODO: setpgid(pid, pgid) where pgid is the pid of the first child processs in the pipelinepid is the process pid
             if (pid[i] == 0) {
                 //am child
